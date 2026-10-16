@@ -1,0 +1,35 @@
+name: seat-watch
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # GitHub's minimum; runs can be delayed a few minutes
+  workflow_dispatch: {}
+
+concurrency:
+  group: seat-watch
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # State lives in the Actions cache, not in the repo, so chat ids stay private.
+      - uses: actions/cache/restore@v4
+        with:
+          path: state.json
+          key: state-${{ github.run_id }}
+          restore-keys: state-
+      - run: node bot/bot.mjs
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          ONCE: '1'
+          STATE_FILE: state.json
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: state.json
+          key: state-${{ github.run_id }}
