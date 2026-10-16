@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Open Seat Alerts (free)",
+  "version": "1.0.0",
+  "description": "Free, no-server watcher: tells you when a film's booking opens, or when a sold-out show goes back on sale. Desktop + Telegram alerts.",
+  "permissions": ["storage", "alarms", "notifications", "activeTab"],
+  "host_permissions": [
+    "https://*.bookmyshow.com/*",
+    "https://*.district.in/*",
+    "https://district.in/*",
+    "https://api.telegram.org/*"
+  ],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Open Seat Alerts" },
+  "content_scripts": [
+    {
+      "matches": ["https://*.bookmyshow.com/*", "https://*.district.in/*", "https://district.in/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

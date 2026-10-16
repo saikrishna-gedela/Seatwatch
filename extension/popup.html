@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  body{font:13px system-ui,sans-serif;width:340px;margin:0;padding:12px;color:#1c1c1e}
+  h1{font-size:15px;margin:0 0 8px}
+  button{cursor:pointer;border:0;border-radius:6px;padding:6px 10px;background:#3b5bdb;color:#fff}
+  button.ghost{background:#e9ecef;color:#1c1c1e}
+  input{width:100%;box-sizing:border-box;margin:3px 0 6px;padding:5px;border:1px solid #ced4da;border-radius:5px}
+  .row{display:flex;gap:6px;margin:6px 0}
+  .w{border:1px solid #dee2e6;border-radius:6px;padding:7px;margin:6px 0}
+  .s{color:#495057;font-size:12px}
+  details{margin-top:10px}
+  @media (prefers-color-scheme:dark){body{background:#1c1c1e;color:#f1f3f5}input{background:#2b2b2e;color:#f1f3f5;border-color:#444}.w{border-color:#444}.s{color:#adb5bd}button.ghost{background:#3a3a3d;color:#f1f3f5}}
+</style></head>
+<body>
+<h1>Open Seat Alerts</h1>
+<div class="s" id="page">Open a BookMyShow or District page.</div>
+<input id="title" placeholder="Film / show name">
+<input id="release" type="date" title="Release date (optional, lets it sleep until a week before)">
+<input id="langs" placeholder="Languages to alert for, e.g. Telugu (optional)">
+<input id="fmts" placeholder="Formats, e.g. IMAX (optional)">
+<div class="row">
+  <button id="addBooking">Bell: booking opens</button>
+  <button id="addSeat">+ Sold-out show</button>
+</div>
+<div id="list"></div>
+<div class="row"><button class="ghost" id="now">Check now</button><button class="ghost" id="pause">Pause</button></div>
+<details><summary>Alerts setup (optional)</summary>
+  <input id="tgToken" placeholder="Telegram bot token (from @BotFather)">
+  <input id="tgChat" placeholder="Telegram chat id">
+  <input id="webhook" placeholder="Webhook (Discord / ntfy.sh URL)">
+  <button id="saveSet">Save</button>
+</details>
+<script src="popup.js" type="module"></script>
+</body></html>
